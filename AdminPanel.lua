@@ -1,4 +1,4 @@
--- Ultimate Admin Script для Roblox
+-- Ultimate Optimized Admin Script для Roblox
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -14,33 +14,40 @@ local LocalPlayer = Players.LocalPlayer
 
 -- Конфигурация админ-функций
 local AdminSettings = {
-    GodMode = false, -- Бессмертие
-    InfiniteAmmo = false, -- Бесконечные патроны
-    InfiniteStamina = false, -- Бесконечная выносливость
-    PlayerESP = true, -- ESP игроков
-    PlayerTeleport = false, -- Телепорт к игрокам
-    FreezePlayer = false, -- Заморозка игроков
-    KickPlayer = false, -- Выгон игроков
-    BringPlayer = false, -- Призыв игроков
-    NoClip = false, -- Режим NoClip
-    FlyMode = false, -- Режим полета
-    SpeedBoost = false, -- Ускорение
-    Invisibility = false, -- Невидимость
-    XRayVision = false, -- Рентген-зрение
-    AntiAfk = true, -- Анти-AFK
-    AutoRespawn = true, -- Авто-респавн
-    ChatLogger = false, -- Логгирование чата
-    PlayerInfo = true -- Информация об игроках
+    GodMode = false,
+    InfiniteAmmo = false,
+    InfiniteStamina = false,
+    PlayerESP = true,
+    PlayerTeleport = false,
+    FreezePlayer = false,
+    KickPlayer = false,
+    BringPlayer = false,
+    NoClip = false,
+    FlyMode = false,
+    SpeedBoost = false,
+    Invisibility = false,
+    XRayVision = false,
+    AntiAfk = true,
+    AutoRespawn = true,
+    ChatLogger = false,
+    PlayerInfo = true,
+    -- Новые функции для приколов
+    TrollingTools = false,
+    LaunchPlayers = false,
+    SpinPlayers = false,
+    FakeChat = false,
+    ForceDance = false,
+    DisableGuns = false
 }
 
 -- Очистка предыдущего GUI
-if CoreGui:FindFirstChild("AdminGUI") then
-    CoreGui.AdminGUI:Destroy()
+if CoreGui:FindFirstChild("UltimateAdminGUI") then
+    CoreGui.UltimateAdminGUI:Destroy()
 end
 
 -- Создание GUI
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "AdminGUI"
+ScreenGui.Name = "UltimateAdminGUI"
 ScreenGui.Parent = CoreGui
 ScreenGui.ResetOnSpawn = false
 
@@ -59,8 +66,8 @@ ToggleIcon.Parent = ScreenGui
 -- Основное меню
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 350, 0, 500)
-MainFrame.Position = UDim2.new(0.5, -175, 0.5, -250)
+MainFrame.Size = UDim2.new(0, 350, 0, 550)
+MainFrame.Position = UDim2.new(0.5, -175, 0.5, -275)
 MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 MainFrame.BorderSizePixel = 2
 MainFrame.BorderColor3 = Color3.fromRGB(80, 80, 80)
@@ -69,7 +76,7 @@ MainFrame.Parent = ScreenGui
 
 -- Заголовок
 local Title = Instance.new("TextLabel")
-Title.Text = "Ultimate Admin Panel"
+Title.Text = "Ultimate Admin Panel v2"
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -83,7 +90,7 @@ ScrollFrame.Size = UDim2.new(1, -10, 1, -50)
 ScrollFrame.Position = UDim2.new(0, 5, 0, 45)
 ScrollFrame.BackgroundTransparency = 1
 ScrollFrame.ScrollBarThickness = 5
-ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, 800)
+ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, 1000)
 ScrollFrame.Parent = MainFrame
 
 -- Админ-функции
@@ -94,7 +101,6 @@ local adminControls = {
     {"PlayerESP", "Toggle", "ESP игроков"},
     {"PlayerTeleport", "Toggle", "Телепорт к игрокам"},
     {"FreezePlayer", "Toggle", "Заморозка игроков"},
-    {"KickPlayer", "Toggle", "Выгон игроков"},
     {"BringPlayer", "Toggle", "Призыв игроков"},
     {"NoClip", "Toggle", "Режим NoClip"},
     {"FlyMode", "Toggle", "Режим полета"},
@@ -103,8 +109,13 @@ local adminControls = {
     {"XRayVision", "Toggle", "Рентген-зрение"},
     {"AntiAfk", "Toggle", "Анти-AFK"},
     {"AutoRespawn", "Toggle", "Авто-респавн"},
-    {"ChatLogger", "Toggle", "Логгирование чата"},
-    {"PlayerInfo", "Toggle", "Информация об игроках"}
+    {"PlayerInfo", "Toggle", "Информация об игроках"},
+    {"TrollingTools", "Toggle", "Инструменты для троллинга"},
+    {"LaunchPlayers", "Toggle", "Подбрасывание игроков"},
+    {"SpinPlayers", "Toggle", "Кручение игроков"},
+    {"FakeChat", "Toggle", "Фейковый чат"},
+    {"ForceDance", "Toggle", "Заставить танцевать"},
+    {"DisableGuns", "Toggle", "Отключить оружие"}
 }
 
 -- Функция создания элементов управления
@@ -203,7 +214,7 @@ CloseButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
 
--- АДМИН-ФУНКЦИИ
+-- Оптимизированные админ-функции
 
 -- 1. БЕССМЕРТИЕ
 local function setupGodMode()
@@ -226,7 +237,7 @@ local function setupInfiniteAmmo()
     end
 end
 
--- 3. ESP ИГРОКОВ
+-- 3. ESP ИГРОКОВ (оптимизированная версия)
 local playerESP = {}
 local function setupPlayerESP()
     if not AdminSettings.PlayerESP then
@@ -271,7 +282,9 @@ local function setupPlayerESP()
     -- Удаляем ESP для игроков, которые вышли
     for player, esp in pairs(playerESP) do
         if not player or not player.Parent then
-            esp:Destroy()
+            if esp then
+                esp:Destroy()
+            end
             playerESP[player] = nil
         end
     end
@@ -291,7 +304,7 @@ local function teleportToPlayer(playerName)
     return false
 end
 
--- 5. РЕЖИМ ПОЛЕТА
+-- 5. РЕЖИМ ПОЛЕТА (оптимизированная версия)
 local flying = false
 local flyConnection
 local function setupFlyMode()
@@ -374,7 +387,7 @@ local function setupSpeedBoost()
     end
 end
 
--- 7. РЕЖИМ NOCLIP
+-- 7. РЕЖИМ NOCLIP (оптимизированная версия)
 local noclipConnection
 local function setupNoClip()
     if AdminSettings.NoClip then
@@ -428,24 +441,28 @@ local function setupAutoRespawn()
     end
 end
 
--- 10. РЕНТГЕН-ЗРЕНИЕ
+-- 10. РЕНТГЕН-ЗРЕНИЕ (оптимизированная версия)
 local xRayParts = {}
+local xRayEnabled = false
 local function setupXRayVision()
-    if not AdminSettings.XRayVision then
-        for _, part in pairs(xRayParts) do
-            if part then
-                part.LocalTransparencyModifier = 0
+    if AdminSettings.XRayVision and not xRayEnabled then
+        xRayEnabled = true
+        -- Сохраняем оригинальную прозрачность
+        for _, part in ipairs(Workspace:GetDescendants()) do
+            if part:IsA("BasePart") and part.Transparency < 0.5 then
+                xRayParts[part] = part.Transparency
+                part.Transparency = 0.7
+            end
+        end
+    elseif not AdminSettings.XRayVision and xRayEnabled then
+        xRayEnabled = false
+        -- Восстанавливаем оригинальную прозрачность
+        for part, transparency in pairs(xRayParts) do
+            if part and part.Parent then
+                part.Transparency = transparency
             end
         end
         xRayParts = {}
-        return
-    end
-    
-    for _, part in ipairs(Workspace:GetDescendants()) do
-        if part:IsA("BasePart") and part.Transparency < 0.5 then
-            part.LocalTransparencyModifier = 0.7
-            table.insert(xRayParts, part)
-        end
     end
 end
 
@@ -508,6 +525,143 @@ local function updatePlayerInfo()
     playerInfoText.Text = infoText
 end
 
+-- НОВЫЕ ФУНКЦИИ ДЛЯ ПРИКОЛОВ
+
+-- 12. ПОДБРАСЫВАНИЕ ИГРОКОВ
+local launchConnections = {}
+local function setupLaunchPlayers()
+    if AdminSettings.LaunchPlayers then
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and player.Character and not launchConnections[player] then
+                local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    local bodyVelocity = Instance.new("BodyVelocity")
+                    bodyVelocity.Velocity = Vector3.new(0, 100, 0)
+                    bodyVelocity.MaxForce = Vector3.new(0, math.huge, 0)
+                    bodyVelocity.Parent = humanoidRootPart
+                    
+                    launchConnections[player] = bodyVelocity
+                    
+                    -- Удаляем через 2 секунды
+                    delay(2, function()
+                        if bodyVelocity and bodyVelocity.Parent then
+                            bodyVelocity:Destroy()
+                        end
+                        launchConnections[player] = nil
+                    end)
+                end
+            end
+        end
+    else
+        -- Отключаем подбрасывание
+        for player, bodyVelocity in pairs(launchConnections) do
+            if bodyVelocity and bodyVelocity.Parent then
+                bodyVelocity:Destroy()
+            end
+        end
+        launchConnections = {}
+    end
+end
+
+-- 13. КРУЧЕНИЕ ИГРОКОВ
+local spinConnections = {}
+local function setupSpinPlayers()
+    if AdminSettings.SpinPlayers then
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and player.Character and not spinConnections[player] then
+                local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    local bodyAngularVelocity = Instance.new("BodyAngularVelocity")
+                    bodyAngularVelocity.AngularVelocity = Vector3.new(0, 20, 0)
+                    bodyAngularVelocity.MaxTorque = Vector3.new(0, math.huge, 0)
+                    bodyAngularVelocity.Parent = humanoidRootPart
+                    
+                    spinConnections[player] = bodyAngularVelocity
+                end
+            end
+        end
+    else
+        -- Отключаем кручение
+        for player, bodyAngularVelocity in pairs(spinConnections) do
+            if bodyAngularVelocity and bodyAngularVelocity.Parent then
+                bodyAngularVelocity:Destroy()
+            end
+        end
+        spinConnections = {}
+    end
+end
+
+-- 14. ФЕЙКОВЫЙ ЧАТ
+local function setupFakeChat()
+    if AdminSettings.FakeChat then
+        -- Отправляем случайные сообщения от имени других игроков
+        local messages = {
+            "Я люблю играть в эту игру!",
+            "Кто хочет быть моим другом?",
+            "Это так весело!",
+            "Я новичок здесь",
+            "Помогите мне, пожалуйста!",
+            "Где найти оружие?",
+            "Я заблудился...",
+            "Давайте объединимся против убийцы!",
+            "Я видел убийцу!",
+            "Бегите, он рядом!"
+        }
+        
+        local randomPlayer = Players:GetPlayers()[math.random(1, #Players:GetPlayers())]
+        local randomMessage = messages[math.random(1, #messages)]
+        
+        if randomPlayer and randomPlayer ~= LocalPlayer then
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
+                "[" .. randomPlayer.Name .. "]: " .. randomMessage,
+                "All"
+            )
+        end
+    end
+end
+
+-- 15. ЗАСТАВИТЬ ТАНЦЕВАТЬ
+local danceConnections = {}
+local function setupForceDance()
+    if AdminSettings.ForceDance then
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and player.Character and not danceConnections[player] then
+                local humanoid = player.Character:FindFirstChild("Humanoid")
+                if humanoid then
+                    -- Включаем анимацию танца
+                    humanoid:LoadAnimation(Instance.new("Animation")):Play()
+                    danceConnections[player] = true
+                end
+            end
+        end
+    else
+        -- Отключаем танцы
+        for player, _ in pairs(danceConnections) do
+            if player.Character then
+                local humanoid = player.Character:FindFirstChild("Humanoid")
+                if humanoid then
+                    humanoid:StopAllAnimations()
+                end
+            end
+        end
+        danceConnections = {}
+    end
+end
+
+-- 16. ОТКЛЮЧИТЬ ОРУЖИЕ
+local function setupDisableGuns()
+    if AdminSettings.DisableGuns then
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and player.Character then
+                local gun = player.Character:FindFirstChild("Gun") or player.Backpack:FindFirstChild("Gun")
+                if gun then
+                    gun:Destroy()
+                end
+            end
+        end
+    end
+end
+
 -- Запускаем все системы
 RunService.Heartbeat:Connect(function()
     setupGodMode()
@@ -518,16 +672,29 @@ RunService.Heartbeat:Connect(function()
     setupNoClip()
     setupXRayVision()
     updatePlayerInfo()
+    setupLaunchPlayers()
+    setupSpinPlayers()
+    setupForceDance()
+    setupDisableGuns()
 end)
 
-setupAntiAfk()
-setupAutoRespawn()
+-- Запускаем системы с интервалом
+spawn(function()
+    while true do
+        setupAntiAfk()
+        setupAutoRespawn()
+        if AdminSettings.FakeChat then
+            setupFakeChat()
+        end
+        wait(5)
+    end
+end)
 
 -- Кнопка для телепорта к игроку
 local teleportButton = Instance.new("TextButton")
 teleportButton.Text = "🚀"
 teleportButton.Size = UDim2.new(0, 50, 0, 50)
-teleportButton.Position = UDim2.new(0, 130, 0, 10)
+teleportButton.Position = UDim2.new(0, 70, 0, 10)
 teleportButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 teleportButton.BackgroundTransparency = 0.5
 teleportButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -552,9 +719,46 @@ teleportButton.MouseButton1Click:Connect(function()
     end
 end)
 
+-- Кнопка для призыва игроков
+local bringButton = Instance.new("TextButton")
+bringButton.Text = "👥"
+bringButton.Size = UDim2.new(0, 50, 0, 50)
+bringButton.Position = UDim2.new(0, 130, 0, 10)
+bringButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+bringButton.BackgroundTransparency = 0.5
+bringButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+bringButton.Font = Enum.Font.SourceSansBold
+bringButton.TextSize = 24
+bringButton.Parent = ScreenGui
+
+bringButton.MouseButton1Click:Connect(function()
+    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and player.Character then
+                local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    humanoidRootPart.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame
+                end
+            end
+        end
+        
+        local notif = Instance.new("TextLabel")
+        notif.Text = "Все игроки призваны!"
+        notif.Size = UDim2.new(0, 300, 0, 40)
+        notif.Position = UDim2.new(0.5, -150, 0.1, 0)
+        notif.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+        notif.TextColor3 = Color3.fromRGB(255, 255, 255)
+        notif.Font = Enum.Font.SourceSansBold
+        notif.TextSize = 16
+        notif.Parent = ScreenGui
+        
+        game:GetService("Debris"):AddItem(notif, 3)
+    end
+end)
+
 -- Уведомление о загрузке
 local notif = Instance.new("TextLabel")
-notif.Text = "✅ Ultimate Admin Script загружен!"
+notif.Text = "✅ Ultimate Admin Script v2 загружен!"
 notif.Size = UDim2.new(0, 300, 0, 40)
 notif.Position = UDim2.new(0.5, -150, 0.1, 0)
 notif.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -565,6 +769,7 @@ notif.Parent = ScreenGui
 
 game:GetService("Debris"):AddItem(notif, 5)
 
-print("✅ Ultimate Admin Script активирован")
+print("✅ Ultimate Admin Script v2 активирован")
 print("🛡️ Админ-панель доступна по кнопке 🛡️")
 print("🚀 Телепорт к игрокам: Нажмите кнопку 🚀")
+print("👥 Призыв игроков: Нажмите кнопку 👥")player.Character:FindFirstC
