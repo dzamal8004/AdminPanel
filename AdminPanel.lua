@@ -772,4 +772,4 @@ game:GetService("Debris"):AddItem(notif, 5)
 print("✅ Ultimate Admin Script v2 активирован")
 print("🛡️ Админ-панель доступна по кнопке 🛡️")
 print("🚀 Телепорт к игрокам: Нажмите кнопку 🚀")
-print("👥 Призыв игроков: Нажмите кнопку 👥")player.Character:FindFirstC
+print("👥 Призыв игроков: Нажмите кнопку 👥")
